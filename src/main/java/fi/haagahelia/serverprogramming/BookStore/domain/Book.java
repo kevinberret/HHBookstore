@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Book {
@@ -13,20 +15,24 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@ManyToOne
+	@JoinColumn(name = "categoryId")
+	private Category category;
+	
 	private String title, author, isbn;
 	private int year;
 	private BigDecimal price;
 	
 	public Book() {
-		this(null,null,null,0,null);
 	}
 	
-	public Book(String title, String author, String isbn, int year, BigDecimal price) {
+	public Book(String title, String author, String isbn, int year, BigDecimal price, Category category) {
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;
 		this.year = year;
 		this.price = price;
+		this.category = category;
 	}
 
 	public long getId() {
@@ -75,6 +81,14 @@ public class Book {
 	
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}	
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	@Override
