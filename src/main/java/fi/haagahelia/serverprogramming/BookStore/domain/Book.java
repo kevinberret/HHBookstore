@@ -2,10 +2,24 @@ package fi.haagahelia.serverprogramming.BookStore.domain;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Book {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	
 	private String title, author, isbn;
 	private int year;
 	private BigDecimal price;
+	
+	public Book() {
+		this(null,null,null,0,null);
+	}
 	
 	public Book(String title, String author, String isbn, int year, BigDecimal price) {
 		this.title = title;
@@ -13,6 +27,14 @@ public class Book {
 		this.isbn = isbn;
 		this.year = year;
 		this.price = price;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -53,5 +75,11 @@ public class Book {
 	
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", isbn=" + isbn + ", year=" + year
+				+ ", price=" + price + "]";
 	}
 }
